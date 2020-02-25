@@ -50,6 +50,10 @@
             <div class="loading-overlay" v-if="loading">
                 <md-progress-spinner md-mode="indeterminate" :md-stroke="2"></md-progress-spinner>
             </div>
+
+            <p class="alert alert-danger" v-if="authFailed">
+                Login failed. Please, check credentials
+            </p>
         </md-content>
         <div class="background" />
     </div>
@@ -61,13 +65,15 @@ import { required, email, minLength } from "vuelidate/lib/validators";
 export default {
     data() {
         return {
-            error: false,
             loading: false,
             login: {
                 email: "",
                 password: ""
             }
         };
+    },
+    destroyed() {
+        this.$store.commit('auth/authFailed', 'reset')
     },
     validations: {
         login: {
@@ -81,29 +87,32 @@ export default {
             }
         }
     },
+    computed: {
+        authFailed() {
+            return this.$store.state.auth.authFailed
+        }
+    },
     methods: {
         getValidationClass (fieldName) {
             const field = this.$v.login[fieldName]
 
             if (field) {
-            return {
-                'md-invalid': field.$invalid && field.$dirty
-            }
+                return {
+                    'md-invalid': field.$invalid && field.$dirty
+                }
             }
         },
         auth() {
             if (!this.$v.$invalid) {
                 //Se lanza el dispatch del login
                 this.loading = true;
-                setTimeout(() => {
-                    this.loading = false;
-                }, 5000);
-            } else {
-                this.error = true;
-                setTimeout(() => {
-                    this.error = false;
-                }, 3000);
-            }
+                
+                this.$store.dispatch('auth/login', this.login)
+                    .then(() => {
+                        this.loading = false;
+                    })
+                    
+            } 
         }
     }
 };

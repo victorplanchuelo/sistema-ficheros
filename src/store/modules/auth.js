@@ -2,19 +2,16 @@
 import Vue from 'vue';
 import router from '../../routes'
 
+const FbAuth = 'https://identitytoolkit.googleapis.com/v1/accounts'
+const FbApiKey = 'AIzaSyDs8lAS8H79byBqwCG6Q4c-c7q2nBQevj0'
+
 const auth = {
-    namespaced: true,
-    
-}
-
-
-/*const auth = {
     namespaced: true,
     state: {
         token: null,
         refresh: null,
         authFailed: false,
-        refreshLoading: true,
+        refreshLoading: true
     },
     getters: {
         isAuth(state) {
@@ -29,7 +26,7 @@ const auth = {
             state.token = authData.idToken
             state.refresh = authData.refreshToken
 
-            if (authData.type === 'signin') {
+            if (authData.type === 'login') {
                 router.push('/dashboard')
             } 
         },
@@ -49,9 +46,9 @@ const auth = {
         {
             state.refreshLoading = false;
         }
-    }, 
+    },
     actions: {
-        singIn({commit}, payload)
+        login({commit}, payload)
         {
             Vue.http.post(`${FbAuth}:signInWithPassword?key=${FbApiKey}`, {
                 ...payload,
@@ -61,13 +58,17 @@ const auth = {
             .then( authData => {
                 commit("authUser", {
                     ...authData,
-                    type: 'signin'
+                    type: 'login'
                 });
 
                 localStorage.setItem("token", authData.idToken)
                 localStorage.setItem("refresh", authData.refreshToken)
+
+                router.push('/dashboard')
+                
             })
             .catch( error => {
+                console.log(error);
                 commit("authFailed")
             })
         },
@@ -97,7 +98,6 @@ const auth = {
             }
         }
     }
-}*/
-
+}
 
 export default auth;
