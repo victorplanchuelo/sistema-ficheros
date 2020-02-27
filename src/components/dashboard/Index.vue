@@ -1,26 +1,26 @@
 <template>
-    <div>
-        <comp-header />
+    <div class="wrapper d-flex align-items-stretch">
         <comp-sidebar />
-        <comp-footer />
+        <div class="content-wrapper">
+          <comp-header />
+          <router-view />
+        </div>
     </div>
 </template>
 <script>
-import compHeader from '../layout/Header.vue'
-import compFooter from '../layout/Footer.vue'
 import compSidebar from '../layout/Sidebar.vue'
+import compHeader from '../layout/Header.vue'
+
 
 export default {
     components: {
-    compHeader,
-    compFooter,
-    compSidebar
-  },
-  computed: {
-    isAuth()
-    {
-        return this.$store.getters['auth/isAuth']
-    }
-  },
+    compSidebar,
+    compHeader
+  }
 }
 </script>
+<style scoped>
+  .content-wrapper {
+    width: 100%;
+  }
+</style>

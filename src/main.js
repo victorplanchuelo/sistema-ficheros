@@ -18,6 +18,8 @@ Vue.use(VueResource)
 /*Vuelidate*/
 Vue.use(Vuelidate);
 
+window.$ = window.jQuery = require('jquery')
+
 new Vue({
   router,
   store,

@@ -1,5 +1,200 @@
 <template>
-    <div>
-        Sidebar
-    </div>
+    <nav id="sidebar">
+        <h1 class="logo">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 mx-auto text-center">
+                <img class="img img-fluid" :src="require('../../assets/empresa.png')" />
+              </div>
+            </div>
+          </div>
+        </h1>
+        <div class="img bg-wrap text-center py-4" style="background-image: url(images/bg_1.jpg);">
+            <div class="user-logo">
+                <img :src="require('../../assets/ejemplo.jpeg')" class="img img-fluid" />
+                <h3>Catriona Henderson</h3>
+            </div>
+        </div>
+        <ul class="list-unstyled components mb-5">
+            <li class="active">
+                <a href="#"><span class="fa fa-home mr-3"></span> Home</a>
+            </li>
+            <li>
+                <a href="#"><span class="fa fa-download mr-3 notif"><small class="d-flex align-items-center justify-content-center">5</small></span> Download</a>
+            </li>
+            <li>
+                <a href="#"><span class="fa fa-gift mr-3"></span> Gift Code</a>
+            </li>
+            <li>
+                <a href="#"><span class="fa fa-trophy mr-3"></span> Top Review</a>
+            </li>
+            <li>
+                <a href="#"><span class="fa fa-cog mr-3"></span> Settings</a>
+            </li>
+            <li>
+                <a href="#"><span class="fa fa-support mr-3"></span> Support</a>
+            </li>
+            <li>
+                <a href="#"><span class="fa fa-sign-out mr-3"></span> Sign Out</a>
+            </li>
+        </ul>
+    </nav>
 </template>
+<script>
+
+export default {
+
+}
+</script>
+<style scoped>
+    @import 'https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900';
+    @import 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css';
+
+
+#sidebar {
+  min-width: 300px;
+  max-width: 300px;
+  background: #32373d;
+  color: #fff;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s; }
+  #sidebar .h6 {
+    color: #fff; }
+  #sidebar.active {
+    margin-left: -300px; }
+    #sidebar.active .custom-menu {
+      margin-right: -50px; }
+    #sidebar.active .btn.btn-primary:before {
+      content: "\f054";
+      font-family: "FontAwesome";
+      left: 2px !important; }
+    #sidebar.active .btn.btn-primary:after {
+      display: none; }
+  #sidebar h1 {
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 20px; }
+    #sidebar h1 .logo {
+      color: #fff;
+      display: block;
+      padding: 10px 30px;
+      background: #BFCF1F; }
+  #sidebar ul.components {
+    padding: 0; }
+  #sidebar ul li {
+    font-size: 16px; }
+    #sidebar ul li > ul {
+      margin-left: 10px; }
+      #sidebar ul li > ul li {
+        font-size: 14px; }
+    #sidebar ul li a {
+      padding: 15px 30px;
+      display: block;
+      color: rgba(255, 255, 255, 0.6);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+      #sidebar ul li a span.notif {
+        position: relative; }
+        #sidebar ul li a span.notif small {
+          position: absolute;
+          top: -3px;
+          bottom: 0;
+          right: -3px;
+          width: 12px;
+          height: 12px;
+          content: '';
+          background: red;
+          border-radius: 50%;
+          font-family: "Poppins", Arial, sans-serif;
+          font-size: 8px; }
+      #sidebar ul li a:hover {
+        color: #fff;
+        background: #BFCF1F;
+        border-bottom: 1px solid #BFCF1F; }
+    #sidebar ul li.active > a {
+      background: transparent;
+      color: #fff; }
+      #sidebar ul li.active > a:hover {
+        background: #BFCF1F;
+        border-bottom: 1px solid #BFCF1F; }
+  @media (max-width: 991.98px) {
+    #sidebar {
+      margin-left: -300px; }
+      #sidebar.active {
+        margin-left: 0; }
+      #sidebar .custom-menu {
+        margin-right: -60px !important;
+        top: 10px !important; } }
+  #sidebar .custom-menu {
+    display: inline-block;
+    position: relative;
+    top: 20px;
+    left: 305px;
+    margin-right: -35px;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s; }
+    @media (prefers-reduced-motion: reduce) {
+      #sidebar .custom-menu {
+        -webkit-transition: none;
+        -o-transition: none;
+        transition: none; } }
+    #sidebar .custom-menu .btn.btn-primary {
+      background: #2f89fc;
+      border-color: transparent;
+      position: relative;
+      color: #000;
+      width: 30px;
+      height: 30px; }
+      #sidebar .custom-menu .btn.btn-primary:after, #sidebar .custom-menu .btn.btn-primary:before {
+        position: absolute;
+        top: 2px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        font-family: "FontAwesome";
+        color: #fff; }
+      #sidebar .custom-menu .btn.btn-primary:after {
+        content: "\f053";
+        right: 2px; }
+
+.bg-wrap {
+  width: 100%;
+  position: relative;
+  z-index: 0; }
+  .bg-wrap:after {
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: '';
+    background: #000;
+    opacity: .3; }
+  .bg-wrap .user-logo .img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto;
+    margin-bottom: 10px; }
+  .bg-wrap .user-logo h3 {
+    color: #fff;
+    font-size: 18px; }
+
+a[data-toggle="collapse"] {
+  position: relative; }
+
+.dropdown-toggle::after {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%); }
+
+@media (max-width: 991.98px) {
+  #sidebarCollapse span {
+    display: none; } }
+</style>
