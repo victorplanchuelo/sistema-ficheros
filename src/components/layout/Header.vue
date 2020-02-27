@@ -46,11 +46,11 @@ export default {
     @import 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css';
 
 
-    #navbar .btn.btn-primary:before {
+    #navbar.active .btn.btn-primary:before {
       content: "\f054";
       font-family: "FontAwesome";
       left: 2px !important; }
-    #navbar .btn.btn-primary:after {
+    #navbar.active .btn.btn-primary:after {
       display: none; }
 
     #navbar .btn.btn-primary {
