@@ -1,7 +1,6 @@
 <template>
     <div class="container py-2">
         <div class="row my-2">
-            <!-- edit form column -->
             <div class="col-lg-4">
                 <h2 class="text-center font-weight-light">User Profile</h2>
             </div>
@@ -114,6 +113,8 @@
 </template>
 <script>
 export default {
-    
+    props: {
+        user: Object,
+    },
 }
 </script>

@@ -7,6 +7,7 @@ import store from './store/store'
 import Login from './components/login/Index.vue'
 import Dashboard from './components/dashboard/Index.vue'
 import Main from './components/dashboard/pages/Main.vue'
+import Profile from './components/dashboard/pages/users/EditProfile.vue'
 import NotFound from './components/404/NotFound.vue'
 
 
@@ -49,6 +50,10 @@ const routes = [
             {
                 path: '/',
                 component: Main
+            },
+            {
+                path: 'users/:username',
+                component: Profile
             }
         ],
         ...authGuard 
