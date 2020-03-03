@@ -12,6 +12,9 @@ const users = {
     getters: {
         getUser(state) {
             return state.user
+        },
+        getAvatar(state) {
+            return (state.user!==null) ? require(`../../assets/usuarios/${state.user.imagen}`) : require('../../assets/usuarios/default-avatar.png');
         }
     },
     mutations: {

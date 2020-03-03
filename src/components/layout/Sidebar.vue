@@ -11,7 +11,7 @@
         </h1>
         <div class="img bg-wrap text-center py-4" style="background-image: url(images/bg_1.jpg);">
             <div class="user-logo">
-                <img :src="getAvatar" class="img img-fluid" />
+                <img :src="avatar" class="img img-fluid" />
                 <h3>{{getFullName}}</h3>
             </div>
         </div>
@@ -43,11 +43,6 @@
 <script>
 
 export default {
-  data() {
-    return {
-      avatar: 'default-avatar.png'
-    }
-  },
   props: {
         user: Object,
   },
@@ -55,13 +50,8 @@ export default {
     getFullName() {
       return (this.user) ? this.user.nombre + " " + this.user.apellidos : "";
     },
-    getAvatar() {
-      if(this.user!==null)
-        console.log(this.user.imagen)
-      else
-        console.log(this.avatar)
-
-      return (this.user!==null) ? require(`../../assets/usuarios/${this.user.imagen}`) : require(`../../assets/usuarios/${this.avatar}`);
+    avatar() {
+      return this.$store.getters['users/getAvatar'];
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <nav id="navbar" class="navbar navbar-expand-md navbar-dark bg-dark">
+  <nav id="navbar" class="navbar navbar-expand-md navbar-dark bg-dark p-0">
     <button type="button" id="menu-toggle" class="btn btn-primary"></button>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-header">
         <span class="navbar-toggler-icon"></span>
@@ -11,7 +11,7 @@
             </li>-->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img data-v-5e628c52="" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" alt="avatar image" class="img-fluid rounded-circle z-depth-0" style="height: 35px;">
+                <img data-v-5e628c52="" :src="avatar" alt="avatar image" class="img-fluid rounded-circle z-depth-0" style="height: 35px;">
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#">Editar perfil</a>
@@ -27,6 +27,14 @@
 
 <script>
 export default {
+    props: {
+      user: Object
+    },
+    computed: {
+      avatar() {
+        return this.$store.getters['users/getAvatar'];
+      }
+    },
     mounted() {
         window.$("#menu-toggle").click(function() {
             window.$("#sidebar, #navbar").toggleClass("active");
