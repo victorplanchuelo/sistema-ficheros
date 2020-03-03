@@ -11,7 +11,7 @@ const auth = {
         token: null,
         refresh: null,
         authFailed: false,
-        refreshLoading: true
+        refreshLoading: true,
     },
     getters: {
         isAuth(state) {
@@ -48,7 +48,7 @@ const auth = {
         }
     },
     actions: {
-        login({commit}, payload)
+        login({commit, dispatch}, payload)
         {
             Vue.http.post(`${FbAuth}:signInWithPassword?key=${FbApiKey}`, {
                 ...payload,
@@ -62,17 +62,13 @@ const auth = {
                 });
 
                 localStorage.setItem("token", authData.idToken)
-                localStorage.setItem("refresh", authData.refreshToken)
-
-                router.push('/dashboard')
-                
+                localStorage.setItem("refresh", authData.refreshToken)                 
             })
             .catch( error => {
-                console.log(error);
                 commit("authFailed")
             })
         },
-        refreshToken({commit}) {
+        refreshToken({commit, dispatch}) {
             const refreshToken = localStorage.getItem('refresh')
 
             if (refreshToken) {
@@ -96,7 +92,7 @@ const auth = {
             else {
                 commit('refreshLoading')
             }
-        }
+        },
     }
 }
 

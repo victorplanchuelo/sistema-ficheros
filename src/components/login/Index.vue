@@ -69,7 +69,8 @@ export default {
             login: {
                 email: "",
                 password: ""
-            }
+            },
+            username: ''
         };
     },
     destroyed() {
@@ -107,11 +108,12 @@ export default {
                 //Se lanza el dispatch del login
                 this.loading = true;
                 
-                this.$store.dispatch('auth/login', this.login)
+                setTimeout(() => {
+                    this.$store.dispatch('auth/login', this.login)
                     .then(() => {
-                        this.loading = false;
+                            this.loading = false;
                     })
-                    
+                }, 2000)
             } 
         }
     }

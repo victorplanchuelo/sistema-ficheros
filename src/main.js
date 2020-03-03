@@ -14,6 +14,7 @@ Vue.use(VueMaterial)
 
 /*Vue Resource*/
 Vue.use(VueResource)
+Vue.http.options.root='https://ingelyt-fichajes.firebaseio.com/'
 
 /*Vuelidate*/
 Vue.use(Vuelidate);

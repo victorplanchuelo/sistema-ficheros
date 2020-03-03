@@ -11,8 +11,8 @@
         </h1>
         <div class="img bg-wrap text-center py-4" style="background-image: url(images/bg_1.jpg);">
             <div class="user-logo">
-                <img :src="require('../../assets/ejemplo.jpeg')" class="img img-fluid" />
-                <h3>Catriona Henderson</h3>
+                <img :src="getAvatar" class="img img-fluid" />
+                <h3>{{getFullName}}</h3>
             </div>
         </div>
         <ul class="list-unstyled components mb-5">
@@ -43,7 +43,27 @@
 <script>
 
 export default {
+  data() {
+    return {
+      avatar: 'default-avatar.png'
+    }
+  },
+  props: {
+        user: Object,
+  },
+  computed: {
+    getFullName() {
+      return (this.user) ? this.user.nombre + " " + this.user.apellidos : "";
+    },
+    getAvatar() {
+      if(this.user!==null)
+        console.log(this.user.imagen)
+      else
+        console.log(this.avatar)
 
+      return (this.user!==null) ? require(`../../assets/usuarios/${this.user.imagen}`) : require(`../../assets/usuarios/${this.avatar}`);
+    }
+  }
 }
 </script>
 <style scoped>
