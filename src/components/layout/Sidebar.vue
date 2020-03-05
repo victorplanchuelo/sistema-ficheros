@@ -35,7 +35,7 @@
                 <a href="#"><span class="fa fa-support mr-3"></span> Support</a>
             </li>
             <li>
-                <a href="#"><span class="fa fa-sign-out mr-3"></span> Desconectar</a>
+                <a  href="#" @click="logoutUser"><span class="fa fa-sign-out mr-3"></span> Desconectar</a>
             </li>
         </ul>
     </nav>
@@ -53,7 +53,12 @@ export default {
     avatar() {
       return this.$store.getters['users/getAvatar'];
     }
-  }
+  },
+  methods: {
+    logoutUser() {
+        this.$store.commit('auth/logoutUser')
+    }
+    }
 }
 </script>
 <style scoped>

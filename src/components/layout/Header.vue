@@ -17,7 +17,7 @@
                 <a class="dropdown-item" href="#">Editar perfil</a>
                 <a class="dropdown-item" href="#">Another action</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Desconectar</a>
+                <a class="dropdown-item" href="#" @click="logoutUser">Desconectar</a>
               </div>
             </li>
         </ul>
@@ -39,6 +39,11 @@ export default {
         window.$("#menu-toggle").click(function() {
             window.$("#sidebar, #navbar").toggleClass("active");
         });
+    },
+    methods: {
+      logoutUser() {
+          this.$store.commit('auth/logoutUser')
+      }
     }
 }
 </script>
