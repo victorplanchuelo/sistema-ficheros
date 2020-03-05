@@ -7,7 +7,7 @@ const FbApiKey = 'AIzaSyDs8lAS8H79byBqwCG6Q4c-c7q2nBQevj0'
 const users = {
     namespaced: true,
     state: {
-        user: null
+        user: null,
     },
     getters: {
         getUser(state) {
@@ -15,6 +15,9 @@ const users = {
         },
         getAvatar(state) {
             return (state.user!==null) ? require(`../../assets/usuarios/${state.user.imagen}`) : require('../../assets/usuarios/default-avatar.png');
+        },
+        getUsername(state) {
+            return state.user.email.substring(0, state.user.email.lastIndexOf("@"));
         }
     },
     mutations: {

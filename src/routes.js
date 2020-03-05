@@ -23,7 +23,7 @@ const authGuard = {
             :
                 (to.path === '/') ? next() : next('/')
         }
-
+        
         if( store.state.auth.refreshLoading) {
             //// async code
             store.watch((state, getters) => getters['auth/refreshLoading'], () => {
@@ -35,7 +35,6 @@ const authGuard = {
         }  
     }
 }
-
 
 const routes = [
     {
@@ -52,8 +51,9 @@ const routes = [
                 component: Main
             },
             {
-                path: 'users/:username',
-                component: Profile
+                path: 'profiles/:username',
+                component: Profile,
+                props: true
             }
         ],
         ...authGuard 

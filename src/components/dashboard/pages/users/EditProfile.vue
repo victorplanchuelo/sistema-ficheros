@@ -1,5 +1,5 @@
 <template>
-    <div class="container py-2">
+    <div class="container py-2" v-if="isLoaded">
         <div class="row my-2">
             <div class="col-lg-4">
                 <h2 class="text-center font-weight-light">User Profile</h2>
@@ -113,8 +113,24 @@
 </template>
 <script>
 export default {
-    props: {
-        user: Object,
+    data() {
+        return {
+            isLoaded: false,
+        }
     },
+    props: {
+        username: String,
+    },
+    created() {
+        // Antes de comprobar datos debemos recuperar los datos del usuario que estamos mirando
+        /*if(!this.user.admin && this.username !== this.$store.getters['users/getUsername'])
+        {
+            // lanzar not authorized
+            this.$router.push('/dashboard')
+        }*/
+
+        // Si sigue por aquí es que o es admin o es la persona
+        this.isLoaded = true;
+    }
 }
 </script>
