@@ -88,5 +88,14 @@ export default {
     #navbar .avatar {
       height: 35px;
     }
+
+    #navbar .dropdown-item {
+      color: black;
+    }
+
+    #navbar .dropdown-item:hover {
+      text-decoration: none;
+      background-color: #BFCF1F;
+    }
     
 </style>
