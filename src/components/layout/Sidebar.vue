@@ -17,13 +17,13 @@
         </div>
         <ul class="list-unstyled components mb-5">
             <li class="active">
-                <a href="#"><span class="fa fa-home mr-3"></span> Home</a>
+                <a href="#"><span class="fa fa-home mr-3"></span> Inicio</a>
             </li>
             <li>
                 <a href="#"><span class="fa fa-download mr-3 notif"><small class="d-flex align-items-center justify-content-center">5</small></span> Download</a>
             </li>
-            <li>
-                <a href="#"><span class="fa fa-gift mr-3"></span> Gift Code</a>
+            <li v-if="user.admin">
+                <a href="#"><span class="fa fa-gift mr-3"></span> Perfiles</a>
             </li>
             <li>
                 <a href="#"><span class="fa fa-trophy mr-3"></span> Top Review</a>
@@ -35,7 +35,7 @@
                 <a href="#"><span class="fa fa-support mr-3"></span> Support</a>
             </li>
             <li>
-                <a href="#"><span class="fa fa-sign-out mr-3"></span> Sign Out</a>
+                <a href="#"><span class="fa fa-sign-out mr-3"></span> Desconectar</a>
             </li>
         </ul>
     </nav>
