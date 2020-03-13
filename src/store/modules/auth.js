@@ -93,6 +93,29 @@ const auth = {
                 commit('refreshLoading')
             }
         },
+        async changeProfileData({commit}, payload) {
+            //hay que ver como obtener el token del usuario que queremos modificar
+
+
+
+            /*const idToken = localStorage.getItem('token')
+
+            Vue.http.post(`${FbAuth}:update?key=${FbApiKey}`, {
+                idToken,
+                email: payload.form.email
+            })
+            .then(response => response.json())
+            .then( authData => {
+                commit("authUser", {
+                    ...authData,
+                    type: 'login'
+                });               
+            })
+            .catch( error => {
+                
+            })*/
+
+        }
     }
 }
 
