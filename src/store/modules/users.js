@@ -133,6 +133,12 @@ const users = {
                 return payload.imagen
             })
         },
+        async changeProfileData({commit,state}, payload) {
+            Vue.http.patch(`usuarios/${payload.username}.json?auth=${state.token}`, payload.form)
+            .then(response => response.json())
+            .then(response => {
+            })
+        }
     }
 }
 

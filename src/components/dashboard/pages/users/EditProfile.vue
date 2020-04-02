@@ -47,15 +47,6 @@
                                 </div>
                             </div>
 
-                            <md-field :class="getValidationClass('email')">
-                                <label for="email">Email</label>
-                                <md-input type="email" name="email" id="email" autocomplete="email" v-model="form.email" :disabled="!this.user.admin ||sending" />
-                                <div v-if="$v.form.$error">
-                                    <span class="md-error" v-if="!$v.form.email.required">El email es obligatorio</span>
-                                    <span class="md-error" v-else-if="!$v.form.email.email">Email incorrecto</span>
-                                </div>
-                            </md-field>
-
                             <md-field :class="getValidationClass('cargo')">
                                 <label for="cargo">Cargo</label>
                                 <md-input name="cargo" id="cargo" autocomplete="position" v-model="form.cargo" :disabled="!this.user.admin ||sending" />
@@ -64,7 +55,12 @@
                                 </div>
                             </md-field>
 
-                            <md-field :class="getValidationClass('password')" :md-toggle-password="false">
+                            <md-field>
+                                <label for="email">Email</label>
+                                <md-input type="email" name="email" id="email" autocomplete="email" v-model="form.email" :disabled="true" />
+                            </md-field>
+
+                            <!--<md-field :class="getValidationClass('password')" :md-toggle-password="false">
                                 <label for="password">Contraseña</label>
                                 <md-input type="password" name="password" id="password" autocomplete="password" v-model="form.password" :disabled="sending" />
                                 <div v-if="$v.form.$error">
@@ -77,7 +73,7 @@
                                 <div v-if="$v.form.$error">
                                     <span class="md-error" v-if="!$v.form.password_confirm.sameAsPassword">La contraseña debe ser idéntica</span>
                                 </div>
-                            </md-field>
+                            </md-field>-->
                         </md-card-content>                    
                         <md-progress-bar md-mode="indeterminate" v-if="sending" />
                         <md-card-actions>
@@ -92,7 +88,9 @@
     </div>
 </template>
 <script>
-import { required, sameAs, minLength, email } from "vuelidate/lib/validators";
+import { required, 
+         minLength,
+} from "vuelidate/lib/validators";
 
 export default {
     data() {
@@ -104,8 +102,6 @@ export default {
                 apellidos: '',
                 email: '',
                 cargo: '',
-                password: '',
-                password_confirm: ''
             },
             new_image: null,
             uploadImage: false,
@@ -124,20 +120,9 @@ export default {
           required,
           minLength: minLength(3)
         },
-        email: {
-          required,
-          email
-        },
         cargo: {
             required
-        },
-        password: {
-            minLength: minLength(4)
-        },
-        password_confirm: {
-            sameAsPassword: sameAs('password')
-        }
-        
+        }, 
       }
     },
     props: {
@@ -146,15 +131,12 @@ export default {
     },
     methods: {
         changeAvatar() {
-            //Aqui deberiamos llamar a una accion pasando la imagen y el usuario, para que le cambie en Firebase la imagen a ese usuario
-            // y de forma reactiva deberia cambiar aquí
             let file = event.target.files[0];
             this.$store.dispatch('users/imageUpload', {
                 username: this.username,
                 file,
             })
             .then((response) => {
-                    //Si todo fue bien mostramos la nueva imagen del usuario
                     this.profile.imagen = response;
                     this.uploadImage = true
             })
@@ -173,51 +155,28 @@ export default {
         clearForm () {
             this.$v.$reset()
             this.loadForm()
-            this.form.password = null
-            this.form.password_confirm = null
         },
         async saveUser () {
-            //Si llega hasta aquí es que no ha habido ningún fallo
-            // Una vez esté aquí debemos comprobar 3 partes
             if(this.user.admin) {
-                // El usuario que ingresó es admin
-                //1. Si hay algún dato diferente (solo admines)
-                await this.$store.dispatch('auth/changeProfileData', {
+                this.sending = true
+
+                await this.$store.dispatch('users/changeProfileData', {
                     form: this.form,
-                    profile: this.profile.email
+                    username: this.username
                 })
                 .then(() => {
-                        
-                })
+                    this.profile.nombre = this.form.nombre;
+                    this.profile.apellidos = this.form.apellidos;
+                    this.profile.cargo = this.form.cargo;
 
-                /*if(this.user.email !== this.form.email) {
-                    //2. Cambio de email (solo admines)
-                    await this.$store.dispatch('users/changeUserEmail', this.form.email)
-                    .then(() => {
-                            
-                    })
-                }*/
+                    window.setTimeout(() => {
+                        this.lastUser = `${this.form.nombre} ${this.form.apellidos}`
+                        this.userSaved = true
+                        this.sending = false
+                        this.clearForm()
+                    }, 1500)
+                })
             }
-
-            //3. Si hay cambio de password (ambos)
-            /*if(!this.form.password)
-            {
-                this.username === this.$store.getters['users/getUsername']
-                await this.$store.dispatch('users/changePassword', this.form.password)
-                .then(() => {
-                        
-                })
-            }*/
-
-            this.sending = true
-
-            // Instead of this timeout, here you can call your API
-            window.setTimeout(() => {
-            this.lastUser = `${this.form.nombre} ${this.form.apellidos}`
-            this.userSaved = true
-            this.sending = false
-            this.clearForm()
-            }, 1500)
         },
         validateChanges () {
             this.$v.$touch()
