@@ -1,136 +1,238 @@
 <template>
     <div class="container py-2" v-if="isLoaded">
         <div class="row my-2">
-            <div class="col-lg-4">
-                <h2 class="text-center font-weight-light">User Profile</h2>
-            </div>
-            <div class="col-lg-8 ">
-                <div class="alert alert-info alert-dismissable"> <a class="panel-close close" data-dismiss="alert">×</a> This is an <strong>.alert</strong>. Use this to show important messages to the user. </div>
-            </div>
-            <div class="col-lg-8 order-lg-1 personal-info">
-                <form role="form">
-                    <div class="form-group row">
-                        <label class="col-lg-3 col-form-label form-control-label">First name</label>
-                        <div class="col-lg-9">
-                            <input class="form-control" type="text" value="Jane" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-3 col-form-label form-control-label">Last name</label>
-                        <div class="col-lg-9">
-                            <input class="form-control" type="text" value="Bishop" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-3 col-form-label form-control-label">Email</label>
-                        <div class="col-lg-9">
-                            <input class="form-control" type="email" value="email@gmail.com" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-3 col-form-label form-control-label">Company</label>
-                        <div class="col-lg-9">
-                            <input class="form-control" type="text" value="" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-3 col-form-label form-control-label">Website</label>
-                        <div class="col-lg-9">
-                            <input class="form-control" type="url" value="" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-3 col-form-label form-control-label">Address</label>
-                        <div class="col-lg-9">
-                            <input class="form-control" type="text" value="" placeholder="Street" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-3 col-form-label form-control-label"></label>
-                        <div class="col-lg-6">
-                            <input class="form-control" type="text" value="" placeholder="City" />
-                        </div>
-                        <div class="col-lg-3">
-                            <input class="form-control" type="text" value="" placeholder="State" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-3 col-form-label form-control-label">Time Zone</label>
-                        <div class="col-lg-9">
-                            <select id="user_time_zone" class="form-control" size="0">
-                                <option value="Hawaii">(GMT-10:00) Hawaii</option>
-                                <option value="Alaska">(GMT-09:00) Alaska</option>
-                                <option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>
-                                <option value="Arizona">(GMT-07:00) Arizona</option>
-                                <option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>
-                                <option value="Central Time (US &amp; Canada)" selected="selected">(GMT-06:00) Central Time (US &amp; Canada)</option>
-                                <option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>
-                                <option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-3 col-form-label form-control-label">Username</label>
-                        <div class="col-lg-9">
-                            <input class="form-control" type="text" value="janeuser" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-3 col-form-label form-control-label">Password</label>
-                        <div class="col-lg-9">
-                            <input class="form-control" type="password" value="11111122333" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-lg-3 col-form-label form-control-label">Confirm password</label>
-                        <div class="col-lg-9">
-                            <input class="form-control" type="password" value="11111122333" />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-lg-9 ml-auto text-right">
-                            <input type="reset" class="btn btn-outline-secondary" value="Cancel" />
-                            <input type="button" class="btn btn-primary" value="Save Changes" />
-                        </div>
-                    </div>
-                </form>
-            </div>
+            <md-toolbar class="md-primary mb-2" :md-elevation="1">
+                <span class="md-title">Perfil del usuario</span>
+            </md-toolbar>
             <div class="col-lg-4 order-lg-0 text-center">
-                <img src="//api.adorable.io/avatars/120/trickst3r.png" class="mx-auto img-fluid rounded-circle" alt="avatar" />
-                <h6 class="my-4">Upload a new photo</h6>
-                <div class="input-group px-lg-4">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputGroupFile02">
-                        <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
-                    </div>
-                    <div class="input-group-append">
-                        <button class="btn btn-secondary"><i class="fa fa-upload"></i></button>
-                    </div>
-                </div>
+                <md-card>
+                    <md-card-media md-medium class="w-100 b-block m-0">
+                        <img :src="avatar()" alt="avatar" class="mx-auto img-fluid profile-image">
+                    </md-card-media>
+                     <md-card-header>
+                        <md-card-content>
+                            <md-field>
+                                <label for="file">Cambiar imagen</label>
+                                <md-file id="file" @md-change="changeAvatar()" v-model="new_image" accept="image/*" :disabled="!this.user.admin" />
+                            </md-field>
+                        </md-card-content>
+                    </md-card-header>
+                </md-card>
+            </div>
+            <div class="col-lg-8 order-lg-0 text-center">
+                <form novalidate class="md-layout" @submit.prevent="validateChanges">
+                    <md-card class="formulario">
+                        <md-card-content>
+                            <div class="md-layout md-gutter">
+                                <div class="md-layout-item md-small-size-100">
+                                <md-field :class="getValidationClass('nombre')">
+                                    <label for="nombre">Nombre</label>
+                                    <md-input name="nombre" id="nombre" autocomplete="nombre" v-model="form.nombre" :disabled="!this.user.admin || sending" />
+                                    <div v-if="$v.form.$error">
+                                        <span class="md-error" v-if="!$v.form.nombre.required">El nombre es obligatorio</span>
+                                        <span class="md-error" v-else-if="!$v.form.nombre.minlength">Nombre incorrecto</span>
+                                    </div>
+                                </md-field>
+                                </div>
+
+                                <div class="md-layout-item md-small-size-100">
+                                <md-field :class="getValidationClass('apellidos')">
+                                    <label for="apellidos">Apellidos</label>
+                                    <md-input name="apellidos" id="apellidos" autocomplete="apellidos" v-model="form.apellidos" :disabled="!this.user.admin ||sending" />
+                                    <div v-if="$v.form.$error">
+                                        <span class="md-error" v-if="!$v.form.apellidos.required">Los apellidos son obligatorios</span>
+                                        <span class="md-error" v-else-if="!$v.form.apellidos.minlength">Apellidos incorrectos</span>
+                                    </div>
+                                </md-field>
+                                </div>
+                            </div>
+
+                            <md-field :class="getValidationClass('cargo')">
+                                <label for="cargo">Cargo</label>
+                                <md-input name="cargo" id="cargo" autocomplete="position" v-model="form.cargo" :disabled="!this.user.admin ||sending" />
+                                <div v-if="$v.form.$error">
+                                    <span class="md-error" v-if="!$v.form.cargo.required">El cargo es obligatorio</span>
+                                </div>
+                            </md-field>
+
+                            <md-field>
+                                <label for="email">Email</label>
+                                <md-input type="email" name="email" id="email" autocomplete="email" v-model="form.email" :disabled="true" />
+                            </md-field>
+
+                            <!--<md-field :class="getValidationClass('password')" :md-toggle-password="false">
+                                <label for="password">Contraseña</label>
+                                <md-input type="password" name="password" id="password" autocomplete="password" v-model="form.password" :disabled="sending" />
+                                <div v-if="$v.form.$error">
+                                    <span class="md-error" v-if="!$v.form.password.minlength">Password incorrecto</span>
+                                </div>
+                            </md-field>
+                            <md-field  :class="getValidationClass('password_confirm')" :md-toggle-password="false">
+                                <label for="password_confirm">Repetir contraseña</label>
+                                <md-input type="password" name="password_confirm" id="password_confirm" autocomplete="password_confirm" v-model="form.password_confirm" :disabled="sending" />
+                                <div v-if="$v.form.$error">
+                                    <span class="md-error" v-if="!$v.form.password_confirm.sameAsPassword">La contraseña debe ser idéntica</span>
+                                </div>
+                            </md-field>-->
+                        </md-card-content>                    
+                        <md-progress-bar md-mode="indeterminate" v-if="sending" />
+                        <md-card-actions>
+                            <md-button type="submit" class="md-primary" :disabled="sending">Actualizar perfil</md-button>
+                        </md-card-actions>
+                    </md-card>
+                    <md-snackbar :md-active.sync="userSaved">The user {{ lastUser }} was saved with success!</md-snackbar>
+                    <md-snackbar :md-active.sync="uploadImage">La imagen se ha cambiado correctamente</md-snackbar>
+                </form>
             </div>
         </div>
     </div>
 </template>
 <script>
+import { required, 
+         minLength,
+} from "vuelidate/lib/validators";
+
 export default {
     data() {
         return {
             isLoaded: false,
+            profile: null,
+            form: {
+                nombre: '',
+                apellidos: '',
+                email: '',
+                cargo: '',
+            },
+            new_image: null,
+            uploadImage: false,
+            userSaved: false,
+            sending: false,
+            lastUser: null
         }
+    },
+    validations: {
+      form: {
+        nombre: {
+          required,
+          minLength: minLength(3)
+        },
+        apellidos: {
+          required,
+          minLength: minLength(3)
+        },
+        cargo: {
+            required
+        }, 
+      }
     },
     props: {
         username: String,
+        user: Object
     },
-    created() {
-        // Antes de comprobar datos debemos recuperar los datos del usuario que estamos mirando
-        /*if(!this.user.admin && this.username !== this.$store.getters['users/getUsername'])
+    methods: {
+        changeAvatar() {
+            let file = event.target.files[0];
+            this.$store.dispatch('users/imageUpload', {
+                username: this.username,
+                file,
+            })
+            .then((response) => {
+                    this.profile.imagen = response;
+                    this.uploadImage = true
+            })
+        },
+        avatar() {
+            return (this.profile!==null) ? this.profile.imagen : 'https://res.cloudinary.com/dfj8xaqmv/image/upload/v1583749912/ingelyt/users/default-avatar_jo0gu8.png';
+        },
+        getValidationClass (fieldName) {
+        const field = this.$v.form[fieldName]
+            if (field) {
+            return {
+                'md-invalid': field.$invalid && field.$dirty
+            }
+            }
+        },
+        clearForm () {
+            this.$v.$reset()
+            this.loadForm()
+        },
+        async saveUser () {
+            if(this.user.admin) {
+                this.sending = true
+
+                await this.$store.dispatch('users/changeProfileData', {
+                    form: this.form,
+                    username: this.username
+                })
+                .then(() => {
+                    this.profile.nombre = this.form.nombre;
+                    this.profile.apellidos = this.form.apellidos;
+                    this.profile.cargo = this.form.cargo;
+
+                    window.setTimeout(() => {
+                        this.lastUser = `${this.form.nombre} ${this.form.apellidos}`
+                        this.userSaved = true
+                        this.sending = false
+                        this.clearForm()
+                    }, 1500)
+                })
+            }
+        },
+        validateChanges () {
+            this.$v.$touch()
+            
+            if (!this.$v.$invalid) {
+                this.saveUser()
+            }
+        },
+        loadForm () {
+            this.form.nombre = this.profile.nombre;
+            this.form.apellidos = this.profile.apellidos;
+            this.form.email = this.profile.email;
+            this.form.cargo = this.profile.cargo;
+
+        }
+    },
+    async created() {
+        let username_profile = this.$store.getters['users/getUsername']
+        let userData;
+        if(this.user.admin || this.username === username_profile)
+        {
+            if(this.username === username_profile)
+            {
+                userData = this.user;
+            }
+            else{
+                await this.$store.dispatch('users/getUserByUsername', this.username)
+                .then((response) => {
+                        userData = response
+                })
+            }
+
+            this.profile = userData
+            this.loadForm();
+            this.isLoaded = true;
+        }
+        else
         {
             // lanzar not authorized
             this.$router.push('/dashboard')
-        }*/
-
-        // Si sigue por aquí es que o es admin o es la persona
-        this.isLoaded = true;
+        }        
     }
 }
 </script>
+<style scoped>
+    .profile-image {
+        width: 140px;
+    }
+
+    .md-progress-bar {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+    }
+    .formulario {
+        width: 100%;
+    }
+</style>
