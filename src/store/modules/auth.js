@@ -12,6 +12,7 @@ const auth = {
         refresh: null,
         authFailed: false,
         refreshLoading: true,
+        createdUser: null,
     },
     getters: {
         isAuth(state) {
@@ -20,6 +21,9 @@ const auth = {
         refreshLoading(state) {
             return state.refreshLoading;
         },
+        createdUser(state) {
+            return state.createdUser
+        }
     },
     mutations: {
         authUser(state, authData) {
@@ -45,6 +49,9 @@ const auth = {
         refreshLoading(state)
         {
             state.refreshLoading = false;
+        },
+        createdUser(state, created) {
+            state.createdUser = created
         }
     },
     actions: {
@@ -92,6 +99,21 @@ const auth = {
             else {
                 commit('refreshLoading')
             }
+        },
+        async createUser({commit}, payload)
+        {
+            return await Vue.http.post(`${FbAuth}:signUp?key=${FbApiKey}`, {
+                ...payload,
+                returnSecureToken: true
+            })
+            .then(response => { 
+                commit("createdUser", true);
+                return response
+            })
+            .catch( error => {
+                commit("createdUser", false);
+                return error;
+            })
         },
     }
 }

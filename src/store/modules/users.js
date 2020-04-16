@@ -3,6 +3,7 @@ import Vue from 'vue';
 
 const FbAuth = 'https://identitytoolkit.googleapis.com/v1/accounts'
 const FbApiKey = 'AIzaSyDs8lAS8H79byBqwCG6Q4c-c7q2nBQevj0'
+const DefaultImagen = "https://res.cloudinary.com/dfj8xaqmv/image/upload/v1583749912/ingelyt/users/default-avatar_jo0gu8.png"
 
 const users = {
     namespaced: true,
@@ -15,7 +16,7 @@ const users = {
             return state.user
         },
         getAvatar(state) {
-            return (state.user!==null) ? state.user.imagen : 'https://res.cloudinary.com/dfj8xaqmv/image/upload/v1583749912/ingelyt/users/default-avatar_jo0gu8.png';
+            return (state.user!==null) ? state.user.imagen : DefaultImagen;
         },
         getUsername(state) {
             return state.user.email.substring(0, state.user.email.lastIndexOf("@"));
@@ -111,7 +112,6 @@ const users = {
             .then(response => response.json())
             .then(response => {
                 // Actualizar el campo en Firebase
-
                 url_imagen = response.secure_url;
             });
 
@@ -134,10 +134,71 @@ const users = {
             })
         },
         async changeProfileData({commit,state}, payload) {
-            Vue.http.patch(`usuarios/${payload.username}.json?auth=${state.token}`, payload.form)
+            Vue.http.patch(`usuarios/${payload.username}.json`, payload.form)
             .then(response => response.json())
             .then(response => {
             })
+        },
+
+        async createUserNode({commit}, payload) {
+            let username = payload.email.substring(0, payload.email.lastIndexOf("@"));
+            await Vue.http.post(`usuarios/${username}.json`, {})
+            .then(response => {
+                Vue.http.patch(`usuarios/${username}.json`, {
+                    admin: 0,
+                    email: payload.email,
+                    imagen: DefaultImagen,
+                    fichajes: {
+                        debe_fichar: 1
+                    },
+                    tardes: {
+                        lunes: 0,
+                        martes: 0,
+                        miercoles: 0,
+                        jueves: 0,
+                        viernes: 0
+                    }
+                })
+                .then((response) => {
+                })
+            });
+        },
+
+        async addScheduleData({commit, state}, payload) {
+            let tardes = {
+                lunes: 0,
+                martes: 0,
+                miercoles: 0,
+                jueves: 0,
+                viernes: 0
+            }
+
+            for (let tarde of payload.tardes) {
+                switch (tarde) {
+                    case '1':
+                        tardes.lunes = 1
+                        break;
+                    case '2':
+                        tardes.martes = 1
+                        break;
+                    case '3':
+                        tardes.miercoles = 1
+                        break;
+                    case '4':
+                        tardes.jueves = 1
+                        break;
+                    case '5':
+                        tardes.viernes = 1
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            Vue.http.patch(`usuarios/${payload.username}.json`, {tardes})
+            .then(response => response.json())
+            .then(response => {
+            }) 
         }
     }
 }
