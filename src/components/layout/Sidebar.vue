@@ -17,15 +17,15 @@
         </div>
         <ul class="list-unstyled components mb-5">
             <li class="active">
-                <a href="#"><span class="fa fa-home mr-3"></span> Inicio</a>
+                <router-link to="/dashboard"><span class="fa fa-home mr-3"></span> Inicio</router-link>
             </li>
             <li>
-                <a href="#" v-if="!user.admin"><span class="fa fa-user mr-3"></span>Ver Fichajes</a>
-                <a href="#" v-else @click="clockIn"><span class="fa fa-user mr-3"></span> Fichajes</a>
+                <a href="#" v-if="user.admin"><span class="fa fa-calendar mr-3"></span>Ver Fichajes</a>
+                <a href="#" @click="clockIn" v-else><span class="fa fa-calendar mr-3"></span>Fichajes</a>
             </li>
             <li >
-                <a href="#" v-if="user.admin"><span class="fa fa-gift mr-3"></span>Ver Perfiles</a>
-                <a href="#" v-else @click="editarPerfil"><span class="fa fa-gift mr-3"></span> Mi Perfil</a>
+                <a href="#" v-if="user.admin"><span class="fa fa-user mr-3"></span>Ver Perfiles</a>
+                <a href="#" @click="editProfile" v-else><span class="fa fa-user mr-3"></span> Mi Perfil</a>
             </li>
             <li>
                 <a  href="#" @click="logoutUser"><span class="fa fa-sign-out mr-3"></span> Desconectar</a>
