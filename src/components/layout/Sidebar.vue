@@ -20,19 +20,12 @@
                 <a href="#"><span class="fa fa-home mr-3"></span> Inicio</a>
             </li>
             <li>
-                <a href="#"><span class="fa fa-download mr-3 notif"><small class="d-flex align-items-center justify-content-center">5</small></span> Download</a>
+                <a href="#" v-if="!user.admin"><span class="fa fa-user mr-3"></span>Ver Fichajes</a>
+                <a href="#" v-else @click="clockIn"><span class="fa fa-user mr-3"></span> Fichajes</a>
             </li>
-            <li v-if="user.admin">
-                <a href="#"><span class="fa fa-gift mr-3"></span> Perfiles</a>
-            </li>
-            <li>
-                <a href="#"><span class="fa fa-trophy mr-3"></span> Top Review</a>
-            </li>
-            <li>
-                <a href="#"><span class="fa fa-cog mr-3"></span> Settings</a>
-            </li>
-            <li>
-                <a href="#"><span class="fa fa-support mr-3"></span> Support</a>
+            <li >
+                <a href="#" v-if="user.admin"><span class="fa fa-gift mr-3"></span>Ver Perfiles</a>
+                <a href="#" v-else @click="editarPerfil"><span class="fa fa-gift mr-3"></span> Mi Perfil</a>
             </li>
             <li>
                 <a  href="#" @click="logoutUser"><span class="fa fa-sign-out mr-3"></span> Desconectar</a>
@@ -57,8 +50,16 @@ export default {
   methods: {
     logoutUser() {
         this.$store.commit('auth/logoutUser')
+    },
+    editProfile() {
+      let username = this.user.email.substring(0, this.user.email.lastIndexOf("@"));
+      this.$router.push(`/dashboard/profiles/${username}`)
+    },
+    clockIn() {
+      let username = this.user.email.substring(0, this.user.email.lastIndexOf("@"));
+      this.$router.push(`/dashboard/clockin/${username}`)
     }
-    }
+  }
 }
 </script>
 <style scoped>

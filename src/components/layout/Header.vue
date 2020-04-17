@@ -6,17 +6,12 @@
     </button>
     <div class="navbar-collapse collapse justify-content-stretch" id="navbar-header">
         <ul class="navbar-nav ml-auto">
-            <!--<li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>-->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img data-v-5e628c52="" :src="avatar" alt="avatar image" class="img-fluid rounded-circle z-depth-0" style="height: 35px;">
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Editar perfil</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" @click="editProfile" v-if="!user.admin">Mi perfil</a>
                 <a class="dropdown-item" href="#" @click="logoutUser">Desconectar</a>
               </div>
             </li>
@@ -43,6 +38,10 @@ export default {
     methods: {
       logoutUser() {
           this.$store.commit('auth/logoutUser')
+      },
+      editProfile() {
+        let username = this.user.email.substring(0, this.user.email.lastIndexOf("@"));
+        this.$router.push(`/dashboard/profiles/${username}`)
       }
     }
 }
