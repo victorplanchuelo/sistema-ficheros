@@ -90,6 +90,20 @@ const users = {
                 return user;
             })
         },
+        async getAllUsers({commit}, payload) {
+            return await Vue.http.get('usuarios.json?orderBy="$key"')
+            .then(response => response.json())
+            .then(response => {
+                let user = []
+                for( let key in response) {
+                    user.push({
+                        ...response[key],
+                        id: key
+                    })
+                }
+                return user;
+            })
+        },
         async imageUpload({commit, dispatch}, payload) {
             
             let url_imagen;
