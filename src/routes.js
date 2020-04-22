@@ -7,6 +7,7 @@ import store from './store/store'
 import Login from './components/login/Index.vue'
 import Dashboard from './components/dashboard/Index.vue'
 import Main from './components/dashboard/pages/Main.vue'
+import MainProfiles from './components/dashboard/pages/users/Main.vue'
 import EditProfile from './components/dashboard/pages/users/EditProfile.vue'
 import CreateProfile from './components/dashboard/pages/users/CreateProfile.vue'
 import NotFound from './components/404/NotFound.vue'
@@ -50,6 +51,10 @@ const routes = [
             {
                 path: '/',
                 component: Main
+            },
+            {
+                path: 'profiles',
+                component: MainProfiles,
             },
             {
                 path: 'profiles/create',

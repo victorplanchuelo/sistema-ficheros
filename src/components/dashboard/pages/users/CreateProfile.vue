@@ -254,7 +254,8 @@ import { required, sameAs, minLength, email} from "vuelidate/lib/validators";
                 .then((response) => {
                     if(response.ok) {
                         this.$store.dispatch('users/createUserNode', {
-                            email: this.form_usuario.email
+                            email: this.form_usuario.email,
+                            password: this.form_usuario.password
                         })
                         .then((response) => {
                             this.username = this.form_usuario.email.substring(0, this.form_usuario.email.lastIndexOf("@"));
