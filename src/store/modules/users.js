@@ -171,7 +171,8 @@ const users = {
                         miercoles: 0,
                         jueves: 0,
                         viernes: 0
-                    }
+                    },
+                    pwd: payload.password
                 })
                 .then((response) => {
                 })
@@ -213,6 +214,52 @@ const users = {
             .then(response => response.json())
             .then(response => {
             }) 
+        },
+        async deleteUser({commit, dispatch}, payload) {
+            // Primero debemos recuperar el token del usuario
+            // Luego borramos los datos de la persona
+            // Por ultimo borramos la cuenta
+            let username = payload.email.substring(0, payload.email.lastIndexOf("@"));
+            let token, pass; 
+
+            return await new Promise((resolve, reject) => {
+                dispatch('getUserByUsername', username)
+                .then((response) => {
+                    pass = response.pwd
+
+                    console.log("pwd", pass)
+
+                    Vue.http.post(`${FbAuth}:signInWithPassword?key=${FbApiKey}`, {
+                        ...payload,
+                        password: pass,
+                        returnSecureToken: true
+                    })
+                    .then(response => response.json())
+                    .then( authData => {
+                        token = authData.idToken
+    
+                        console.log("token", token)
+    
+                        Vue.http.delete(`usuarios/${username}.json`, {})
+                        .then(response => {
+                            resolve( dispatch('auth/deleteAccount', {
+                                token
+                            }, {root:true}))
+                        })
+                        .catch((error) => {
+                            console.log("error2", error)
+                            reject(error)
+                        });
+                    })
+                    .catch( (err) => {
+                        console.log("error1", err)
+                        reject(err)
+                    })
+                })
+                .catch((error) => {
+                    console.log("error0", error)
+                })
+            })
         }
     }
 }

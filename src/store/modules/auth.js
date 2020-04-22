@@ -69,7 +69,7 @@ const auth = {
                 });
 
                 localStorage.setItem("token", authData.idToken)
-                localStorage.setItem("refresh", authData.refreshToken)                 
+                localStorage.setItem("refresh", authData.refreshToken)
             })
             .catch( error => {
                 commit("authFailed")
@@ -112,6 +112,17 @@ const auth = {
             })
             .catch( error => {
                 commit("createdUser", false);
+                return error;
+            })
+        },
+        async deleteAccount({commit, dispatch}, payload) {
+            return await Vue.http.post(`${FbAuth}:delete?key=${FbApiKey}`, {
+                idToken: payload.token
+            })
+            .then(response => { 
+                return response
+            })
+            .catch( error => {
                 return error;
             })
         },
