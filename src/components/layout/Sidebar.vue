@@ -24,7 +24,7 @@
                 <a href="#" @click="clockIn" v-else><span class="fa fa-calendar mr-3"></span>Fichajes</a>
             </li>
             <li >
-                <a href="#" v-if="user.admin"><span class="fa fa-user mr-3"></span>Ver Perfiles</a>
+                <a href="#" @click="seeProfiles" v-if="user.admin"><span class="fa fa-user mr-3"></span>Ver Perfiles</a>
                 <a href="#" @click="editProfile" v-else><span class="fa fa-user mr-3"></span> Mi Perfil</a>
             </li>
             <li>
@@ -48,16 +48,20 @@ export default {
     }
   },
   methods: {
+    getUsername(email) {
+      return email.substring(0, email.lastIndexOf("@"));
+    },
     logoutUser() {
         this.$store.commit('auth/logoutUser')
     },
     editProfile() {
-      let username = this.user.email.substring(0, this.user.email.lastIndexOf("@"));
-      this.$router.push(`/dashboard/profiles/${username}`)
+      this.$router.push(`/dashboard/profiles/${this.getUsername(this.user.email)}`)
+    },
+    seeProfiles() {
+      this.$router.push(`/dashboard/profiles`)
     },
     clockIn() {
-      let username = this.user.email.substring(0, this.user.email.lastIndexOf("@"));
-      this.$router.push(`/dashboard/clockin/${username}`)
+      this.$router.push(`/dashboard/clockin/${this.getUsername(this.user.email)}`)
     }
   }
 }
