@@ -13,11 +13,11 @@
                         <span
                             class="md-error"
                             v-if="!$v.login.email.required"
-                        >This field is required</span>
+                        >Este campo es requerido</span>
                         <span
                             class="md-error"
                             v-if="!$v.login.email.email"
-                        >Please enter a valid email</span>
+                        >Ingrese un correo electrónico válido</span>
                     </div>
                 </md-field>
 
@@ -33,18 +33,17 @@
                         <span
                             class="md-error"
                             v-if="!$v.login.password.required"
-                        >This field is required</span>
+                        >Este campo es requerido</span>
                         <span
                             class="md-error"
                             v-if="!$v.login.password.minLength"
-                        >At least 4 characters</span>
+                        >Al menos 4 caracteres</span>
                     </div>
                 </md-field>
             </div>
 
             <div class="actions md-layout md-alignment-center-space-between">
-                <a href="/resetpassword">Reset password</a>
-                <md-button class="md-raised md-primary" @click="auth">Log in</md-button>
+                <md-button class="md-raised md-primary" @click="auth">Entrar</md-button>
             </div>
 
             <div class="loading-overlay" v-if="loading">
@@ -52,7 +51,7 @@
             </div>
 
             <p class="alert alert-danger" v-if="authFailed">
-                Login failed. Please, check credentials
+                Falloó el acceso de usuario. Por favor, compruebe sus credenciales.
             </p>
         </md-content>
         <div class="background" />
