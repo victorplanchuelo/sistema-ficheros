@@ -5,7 +5,7 @@
                 <img class="height:100%;" :src="require('../../assets/empresa.png')" />
             </div>
 
-            <div class="form">
+            <div class="form" @keyup.enter="auth">
                 <md-field :class="getValidationClass('email')">
                     <label>E-mail</label>
                     <md-input @blur="$v.login.email.$touch()" v-model="login.email" autofocus></md-input>
