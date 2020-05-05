@@ -10,6 +10,9 @@ import Main from './components/dashboard/pages/Main.vue'
 import MainProfiles from './components/dashboard/pages/users/Main.vue'
 import EditProfile from './components/dashboard/pages/users/EditProfile.vue'
 import CreateProfile from './components/dashboard/pages/users/CreateProfile.vue'
+
+import AdminSchedules from './components/dashboard/pages/schedules/admin/Main.vue'
+import UserSchedules from './components/dashboard/pages/schedules/user/Main.vue'
 import NotFound from './components/404/NotFound.vue'
 
 
@@ -64,6 +67,16 @@ const routes = [
             {
                 path: 'profiles/:username',
                 component: EditProfile,
+                props: true
+            },
+            {
+                path: 'schedules/',
+                component: AdminSchedules,
+                props: true
+            },
+            {
+                path: 'schedules/:username',
+                component: UserSchedules,
                 props: true
             },
         ],
