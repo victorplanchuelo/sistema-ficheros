@@ -55,5 +55,10 @@ export default {
     -webkit-transition: all 0.3s;
     -o-transition: all 0.3s;
     transition: all 0.3s; 
+    background-image: url('../../assets/images/bk.jpg');
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-color:rgba(255, 255, 255, 0.1);
+    background-size: cover;
   }
 </style>
