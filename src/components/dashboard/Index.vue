@@ -4,7 +4,7 @@
       <comp-sidebar :user="user" />
       <div class="content-wrapper">
         <comp-header :user="user" />
-        <router-view :user="user" id="content-main" class="p-4 p-md-5 pt-5" />
+        <router-view :user="user" id="content-main" class="p-4 p-md-5 pt-5 text-center" />
       </div>
     </div>
     <div class="loading-overlay h100" v-if="loading">
