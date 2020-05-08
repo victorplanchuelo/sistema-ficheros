@@ -80,12 +80,26 @@
         },
         newUser () {
             this.$router.push('profiles/create')
+            .catch(err => { 
+                // Ignore the vuex err regarding  navigating to the page they are already on.
+                if (err.name != "NavigationDuplicated") {
+                    // But print any other errors to the console
+                    console.error(err);
+                }
+            })
         },
         searchOnTable () {
             this.searched = searchByEMail(this.users, this.search)
         },
         editUser(user) {
             this.$router.push(`profiles/${this.getUsername(user.email)}`)
+            .catch(err => { 
+                // Ignore the vuex err regarding  navigating to the page they are already on.
+                if (err.name != "NavigationDuplicated") {
+                    // But print any other errors to the console
+                    console.error(err);
+                }
+            })
         },
         async deleteUser(user) {
             this.objDeleteUser = user

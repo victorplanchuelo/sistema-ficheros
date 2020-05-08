@@ -56,12 +56,33 @@ export default {
     },
     editProfile() {
       this.$router.push(`/dashboard/profiles/${this.getUsername(this.user.email)}`)
+      .catch(err => { 
+          // Ignore the vuex err regarding  navigating to the page they are already on.
+          if (err.name != "NavigationDuplicated") {
+              // But print any other errors to the console
+              console.error(err);
+          }
+      })
     },
     seeProfiles() {
       this.$router.push(`/dashboard/profiles`)
+      .catch(err => { 
+          // Ignore the vuex err regarding  navigating to the page they are already on.
+          if (err.name != "NavigationDuplicated") {
+              // But print any other errors to the console
+              console.error(err);
+          }
+      })
     },
     clockIn() {
       this.$router.push(`/dashboard/clockin/${this.getUsername(this.user.email)}`)
+      .catch(err => { 
+          // Ignore the vuex err regarding  navigating to the page they are already on.
+          if (err.name != "NavigationDuplicated") {
+              // But print any other errors to the console
+              console.error(err);
+          }
+      })
     }
   }
 }
