@@ -83,43 +83,6 @@ const schedules = {
         }
     },
     actions: {
-        /*async createNodeSchedule({commit, state, dispatch}, payload) {
-            // aqui debemos ver qué nodo crear (solo dia, solo mes, todo)
-            let path = `usuarios/${payload.username}/fichajes/${payload.fecha.anyo}/${payload.fecha.mes}/${payload.fecha.dia}.json`
-            commit('fecha', payload.fecha)
-            commit("fichajes", payload.fichajes);
-
-            return await dispatch('isDailyScheduleCreated')
-            .then((response) => {
-                let key = 0;
-                let accion = state.textoBoton
-                let proxima_accion = capitalize('Finalizar jornada')
-                if(response) {
-                    const keys = Object.keys(state.fichajes[payload.fecha.anyo][payload.fecha.mes][payload.fecha.dia]).sort((a,b)=>a-b)
-                    accion = state.fichajes[payload.fecha.anyo][payload.fecha.mes][payload.fecha.dia][keys[keys.length - 1]].proxima_accion
-                    proxima_accion = capitalize(tipos_acciones[accion.toUpperCase()].proxima_accion, true)
-                    key =  Number.parseInt(keys[keys.length - 1]) + 1
-                }
-
-                Vue.http.patch(path, {
-                    [key]: {
-                        hora: payload.hora,
-                        tipo_fichaje: accion,
-                        proxima_accion
-                    }
-                })
-                .then(response => response.json())
-                .then(response => {
-                    dispatch('getScheduleByUsername', payload.username)
-                    .then((response) => {
-                        commit('fichajes', response)
-                    }) 
-                })
-
-                commit('textoBoton', proxima_accion)
-                return true;
-            })
-        },*/
         async createNodeSchedule({commit, state, dispatch}, payload) {
             // aqui debemos ver qué nodo crear (solo dia, solo mes, todo)
             let path = `usuarios/${payload.username}/fichajes/${payload.fecha.anyo}/${payload.fecha.mes}/${payload.fecha.dia}.json`
@@ -200,6 +163,9 @@ const schedules = {
             commit('fecha', payload.fecha)
             commit("fichajes", payload.fichajes);
 
+            console.log('Fichajes', payload.fichajes)
+            console.log('fich', state.fichajes)
+
             return await dispatch('isDailyScheduleCreated')
             .then((response) => {
                 let accion = state.textoBoton
@@ -208,6 +174,7 @@ const schedules = {
                     accion = payload.fichajes[payload.fecha.anyo][payload.fecha.mes][payload.fecha.dia][keys[keys.length - 1]].proxima_accion
                 }
 
+                console.log('accion', accion)
                 commit('textoBoton', accion)
                 return true;
             })
