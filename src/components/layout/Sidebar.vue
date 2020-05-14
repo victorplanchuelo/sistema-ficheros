@@ -16,14 +16,14 @@
             </div>
         </div>
         <ul class="list-unstyled components mb-5">
-            <li class="active">
+            <li :class="(currentPage === '/dashboard') ? 'active' : ''">
                 <router-link to="/dashboard"><span class="fa fa-home mr-3"></span> Inicio</router-link>
             </li>
-            <li>
+            <li :class="(currentPage.includes('schedules')) ? 'active' : ''">
                 <a href="#" v-if="user.admin"><span class="fa fa-calendar mr-3"></span>Ver Fichajes</a>
                 <a href="#" @click="clockIn" v-else><span class="fa fa-calendar mr-3"></span>Fichajes</a>
             </li>
-            <li >
+            <li :class="(currentPage.includes('profiles')) ? 'active' : ''">
                 <a href="#" @click="seeProfiles" v-if="user.admin"><span class="fa fa-user mr-3"></span>Ver Perfiles</a>
                 <a href="#" @click="editProfile" v-else><span class="fa fa-user mr-3"></span> Mi Perfil</a>
             </li>
@@ -45,6 +45,9 @@ export default {
     },
     avatar() {
       return this.$store.getters['users/getAvatar'];
+    },
+    currentPage() {
+      return this.$route.path;
     }
   },
   methods: {
@@ -56,12 +59,33 @@ export default {
     },
     editProfile() {
       this.$router.push(`/dashboard/profiles/${this.getUsername(this.user.email)}`)
+      .catch(err => { 
+          // Ignore the vuex err regarding  navigating to the page they are already on.
+          if (err.name != "NavigationDuplicated") {
+              // But print any other errors to the console
+              console.error(err);
+          }
+      })
     },
     seeProfiles() {
       this.$router.push(`/dashboard/profiles`)
+      .catch(err => { 
+          // Ignore the vuex err regarding  navigating to the page they are already on.
+          if (err.name != "NavigationDuplicated") {
+              // But print any other errors to the console
+              console.error(err);
+          }
+      })
     },
     clockIn() {
       this.$router.push(`/dashboard/clockin/${this.getUsername(this.user.email)}`)
+      .catch(err => { 
+          // Ignore the vuex err regarding  navigating to the page they are already on.
+          if (err.name != "NavigationDuplicated") {
+              // But print any other errors to the console
+              console.error(err);
+          }
+      })
     }
   }
 }
@@ -133,7 +157,9 @@ export default {
         border-bottom: 1px solid #BFCF1F; }
     #sidebar ul li.active > a {
       background: transparent;
-      color: #fff; }
+      color: #fff; 
+      background: #BFCF1F;
+      border-bottom: 1px solid #BFCF1F;}
       #sidebar ul li.active > a:hover {
         background: #BFCF1F;
         border-bottom: 1px solid #BFCF1F; }

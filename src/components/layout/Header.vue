@@ -42,6 +42,13 @@ export default {
       editProfile() {
         let username = this.user.email.substring(0, this.user.email.lastIndexOf("@"));
         this.$router.push(`/dashboard/profiles/${username}`)
+        .catch(err => { 
+            // Ignore the vuex err regarding  navigating to the page they are already on.
+            if (err.name != "NavigationDuplicated") {
+                // But print any other errors to the console
+                console.error(err);
+            }
+        })
       }
     }
 }

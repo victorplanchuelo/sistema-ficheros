@@ -32,6 +32,13 @@ const auth = {
 
             if (authData.type === 'login') {
                 router.push('/dashboard')
+                .catch(err => { 
+                    // Ignore the vuex err regarding  navigating to the page they are already on.
+                    if (err.name != "NavigationDuplicated") {
+                        // But print any other errors to the console
+                        console.error(err);
+                    }
+                })
             } 
         },
         authFailed(state, type) {
@@ -45,6 +52,13 @@ const auth = {
             localStorage.removeItem('refresh');
 
             router.push('/')
+            .catch(err => { 
+                // Ignore the vuex err regarding  navigating to the page they are already on.
+                if (err.name != "NavigationDuplicated") {
+                    // But print any other errors to the console
+                    console.error(err);
+                }
+            })
         },
         refreshLoading(state)
         {
