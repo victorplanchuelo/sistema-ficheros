@@ -21,7 +21,7 @@
             </li>
             <li :class="(currentPage.includes('schedules')) ? 'active' : ''">
                 <a href="#" v-if="user.admin"><span class="fa fa-calendar mr-3"></span>Ver Fichajes</a>
-                <a href="#" @click="clockIn" v-else><span class="fa fa-calendar mr-3"></span>Fichajes</a>
+                <a href="#" @click="schedules" v-else><span class="fa fa-calendar mr-3"></span>Fichajes</a>
             </li>
             <li :class="(currentPage.includes('profiles')) ? 'active' : ''">
                 <a href="#" @click="seeProfiles" v-if="user.admin"><span class="fa fa-user mr-3"></span>Ver Perfiles</a>
@@ -77,8 +77,8 @@ export default {
           }
       })
     },
-    clockIn() {
-      this.$router.push(`/dashboard/clockin/${this.getUsername(this.user.email)}`)
+    schedules() {
+      this.$router.push(`/dashboard/schedules/${this.getUsername(this.user.email)}`)
       .catch(err => { 
           // Ignore the vuex err regarding  navigating to the page they are already on.
           if (err.name != "NavigationDuplicated") {
