@@ -4,7 +4,7 @@
             
             <div class="alert alert-success alert-dismissible" v-if="isScheduled">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                Se ha marcado la acción <strong>{{actionText}}</strong> correctamente a las {{actionHora}}
+                Registro <strong>{{actionText}}</strong> realizado correctamente a las {{actionHora}}
             </div>
             <md-card class="col-lg-4 col-md-6 col-sm-8 m-0 mx-auto">
                 <md-card-content class="text-center">
