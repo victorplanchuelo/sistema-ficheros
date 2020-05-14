@@ -4,7 +4,7 @@
       <comp-sidebar :user="user" />
       <div class="content-wrapper">
         <comp-header :user="user" />
-        <router-view :user="user" id="content-main" class="p-4 p-md-5 pt-5 text-center" />
+        <router-view :user="user" id="content-main" class="p-4 p-md-5 pt-5 text-center" @reloadUser="reloadUser()" />
       </div>
     </div>
     <div class="loading-overlay h100" v-if="loading">
@@ -35,7 +35,15 @@ export default {
           this.user = this.$store.getters['users/getUser'];
           this.loading = false;
         })
-  }
+  },
+  methods: {
+    async reloadUser(){
+      await this.$store.dispatch('users/getUserData')
+      .then(() => {
+        this.user = this.$store.getters['users/getUser'];
+      })
+    }
+  },
 }
 </script>
 <style scoped>

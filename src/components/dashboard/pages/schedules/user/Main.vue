@@ -114,6 +114,7 @@ export default {
                 this.actionText = response.actionText
                 this.actionHora = response.actionHora
                 this.fichajes = this.getFichajes
+                this.$emit('reloadUser')
             })
         },
         
