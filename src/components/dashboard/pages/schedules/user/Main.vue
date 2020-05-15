@@ -51,7 +51,7 @@ export default {
             styleSeconds: 0,
 
             notAuthorized: false,
-            varAlert : 0,
+            intAlert : 0,
 
             fichajes: null,
 
