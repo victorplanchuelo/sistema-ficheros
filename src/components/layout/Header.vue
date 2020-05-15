@@ -93,6 +93,7 @@ export default {
 
     #navbar .avatar {
       height: 35px;
+      width: 35px;
     }
 
     #navbar .dropdown-item {
