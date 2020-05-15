@@ -20,7 +20,7 @@
                 <router-link to="/dashboard"><span class="fa fa-home mr-3"></span> Inicio</router-link>
             </li>
             <li :class="(currentPage.includes('schedules')) ? 'active' : ''">
-                <a href="#" v-if="user.admin"><span class="fa fa-calendar mr-3"></span>Ver Fichajes</a>
+                <a href="#" @click="SeeSchedules" v-if="user.admin"><span class="fa fa-calendar mr-3"></span>Ver Fichajes</a>
                 <a href="#" @click="schedules" v-else><span class="fa fa-calendar mr-3"></span>Fichajes</a>
             </li>
             <li :class="(currentPage.includes('profiles')) ? 'active' : ''">
@@ -69,6 +69,16 @@ export default {
     },
     seeProfiles() {
       this.$router.push(`/dashboard/profiles`)
+      .catch(err => { 
+          // Ignore the vuex err regarding  navigating to the page they are already on.
+          if (err.name != "NavigationDuplicated") {
+              // But print any other errors to the console
+              console.error(err);
+          }
+      })
+    },
+    seeSchedules() {
+      this.$router.push(`/dashboard/schedules`)
       .catch(err => { 
           // Ignore the vuex err regarding  navigating to the page they are already on.
           if (err.name != "NavigationDuplicated") {
