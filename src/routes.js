@@ -13,6 +13,7 @@ import CreateProfile from './components/dashboard/pages/users/CreateProfile.vue'
 
 import AdminSchedules from './components/dashboard/pages/schedules/admin/Main.vue'
 import UserSchedules from './components/dashboard/pages/schedules/user/Main.vue'
+import UserListSchedule from './components/dashboard/pages/schedules/user/List.vue'
 import NotFound from './components/404/NotFound.vue'
 
 
@@ -77,6 +78,11 @@ const routes = [
             {
                 path: 'schedules/:username',
                 component: UserSchedules,
+                props: true
+            },
+            {
+                path: 'schedules/:username/list',
+                component: UserListSchedule,
                 props: true
             },
         ],
