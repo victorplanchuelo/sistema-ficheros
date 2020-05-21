@@ -7,7 +7,7 @@
                         <button class="btn btn-link collapsed text-white" data-toggle="collapse" 
                                 :data-target="`#year_${indexY}`" aria-expanded="false" 
                                 :aria-controls="`#year_${indexY}`">
-                            {{indexY}}
+                            Año: {{indexY}}
                         </button>
                     </h3>
                 </div>
@@ -21,7 +21,7 @@
                                     <button class="btn btn-link collapsed text-white" data-toggle="collapse" 
                                             :data-target="`#month_${indexY}${indexM}`" aria-expanded="false" 
                                             :aria-controls="`#month_${indexY}${indexM}`">
-                                        {{indexM}}
+                                        Mes: {{getMes(indexM)}}
                                     </button>
                                 </h4>
                             </div>
@@ -31,7 +31,7 @@
                                 <div class="card-body" id="accordionDays">
                                     <div class="card bg-light" v-for="(operaciones, indexD) in dias" :key="indexD">
                                         <div class="card-header">
-                                            <a href="#" data-toggle="collapse" :data-target="`#day_${indexY}${indexM}${indexD}`">{{indexD}}</a>
+                                            <a href="#" data-toggle="collapse" :data-target="`#day_${indexY}${indexM}${indexD}`">Día: {{indexD}}</a>
                                         </div>
                                         <div class="card-body collapse" data-parent="#accordionDays" :id="`day_${indexY}${indexM}${indexD}`">
                                             <ul class="list-group list-group-flush">
@@ -51,6 +51,8 @@
     </div>
 </template>
 <script>
+const meses = ['Enero', 'Febrero','Marzo','Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre','Diciembre'];
+
 export default {
     data() {
         return {
@@ -62,6 +64,12 @@ export default {
     props: {
         user: Object,
         username: String,
+    },
+    methods: {
+        getMes(mes) {
+            console.log('mes', meses)
+            return meses[mes-1];
+        }
     },
     async created() {
         const username_profile = this.$store.getters['users/getUsername']
