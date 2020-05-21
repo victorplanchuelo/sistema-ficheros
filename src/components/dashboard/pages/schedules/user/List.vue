@@ -1,7 +1,7 @@
 <template>
     <div v-if="isLoaded">
         <div id="accordionYears" v-if="Object.keys(this.fichajes).length">
-            <div class="card bg-primary" v-for="(meses, indexY) in this.fichajes" :key="indexY">
+            <div class="card bg-ingelyt-azul" v-for="(meses, indexY) in this.fichajes" :key="indexY">
                 <div class="card-header" :id="`headingYear_${indexY}`">
                     <h3 class="mb-0">
                         <button class="btn btn-link collapsed text-white" data-toggle="collapse" 
@@ -15,7 +15,7 @@
                         class="collapse" :aria-labelledby="`headingYear_${indexY}`" 
                         data-parent="#accordionYears">
                     <div id="accordionMonths" class="card-body">
-                        <div class="card bg-secondary" v-for="(dias, indexM) in meses" :key="indexM">
+                        <div class="card bg-ingelyt-verde" v-for="(dias, indexM) in meses" :key="indexM">
                             <div class="card-header" :id="`headingMonth_${indexY}${indexM}`">
                                 <h4 class="mb-0">
                                     <button class="btn btn-link collapsed text-white" data-toggle="collapse" 
@@ -67,7 +67,6 @@ export default {
     },
     methods: {
         getMes(mes) {
-            console.log('mes', meses)
             return meses[mes-1];
         }
     },
@@ -98,4 +97,12 @@ export default {
     
 }
 </script>
+<style scoped>
+    .bg-ingelyt-azul {
+        background: #003673;
+    }
+    .bg-ingelyt-verde {
+        background: #BFCF1F;
+    }
+</style>
 
