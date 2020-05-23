@@ -8,7 +8,7 @@
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img data-v-5e628c52="" :src="avatar" alt="avatar image" class="img-fluid rounded-circle z-depth-0" style="height: 35px;">
+                <img data-v-5e628c52="" :src="avatar" alt="avatar image" class="img-fluid rounded-circle z-depth-0" style="height: 35px; width: 35px;">
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#" @click="editProfile" v-if="!user.admin">Mi perfil</a>
